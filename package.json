@@ -1,0 +1,28 @@
+{
+  "name": "ck-league-table",
+  "version": "0.0.1",
+  "description": "Code Kingdoms league table interview task.",
+  "main": "index.js",
+  "author": "Andrew Moss <andrew@codekingdoms.com>",
+  "license": "Proprietary",
+  "private": true,
+  "devDependencies": {
+    "@types/jest": "^24.0.18",
+    "@types/node": "^12.7.4",
+    "jest": "^24.9.0",
+    "prettier": "^1.18.2",
+    "typescript": "^3.6.3"
+  },
+  "engines": {
+    "node": "^12.10.0",
+    "yarn": "^1.17.3"
+  },
+  "scripts": {
+    "build": "./node_modules/.bin/tsc",
+    "main": "node src/main",
+    "format": "./node_modules/.bin/prettier src/*.ts --write",
+    "watch": "./node_modules/.bin/tsc --watch",
+    "test": "./node_modules/.bin/jest src/*.test.js",
+    "archive": "zip --exclude='*.js' --exclude='*.js.map' -r ck-league-table.zip src README.md data package.json yarn.lock tsconfig.json"
+  }
+}
