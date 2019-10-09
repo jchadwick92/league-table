@@ -14,7 +14,6 @@ function rankTeams(csvLines) {
         var homeTeam = line[0], awayTeam = line[1], homeTeamGoalsString = line[2], awayTeamGoalsString = line[3];
         var homeTeamGoals = parseInt(homeTeamGoalsString, 10);
         var awayTeamGoals = parseInt(awayTeamGoalsString, 10);
-        // TODO: Instead of printing these out, build up a league table
         var homeTeamLeagueEntry = createLeagueTableEntry(homeTeam, homeTeamGoals, awayTeamGoals);
         var awayTeamLeagueEntry = createLeagueTableEntry(awayTeam, awayTeamGoals, homeTeamGoals);
         leagueTable = addEntryToLeagueTable(leagueTable, homeTeamLeagueEntry);
@@ -35,7 +34,6 @@ exports.rankTeams = rankTeams;
 function sortLeagueTable(leagueTable) {
     return leagueTable
         .sort(function (a, b) {
-        // TODO: If team a should be below team b, return -1, etc.
         if (a.points < b.points) {
             return -1;
         }
@@ -55,7 +53,7 @@ function sortLeagueTable(leagueTable) {
         .reverse();
 }
 exports.sortLeagueTable = sortLeagueTable;
-var getPointsFromResult = function (teamGoals, opponentGoals) {
+function getPointsFromResult(teamGoals, opponentGoals) {
     if (teamGoals > opponentGoals) {
         return 3;
     }
@@ -63,7 +61,8 @@ var getPointsFromResult = function (teamGoals, opponentGoals) {
         return 1;
     }
     return 0;
-};
+}
+exports.getPointsFromResult = getPointsFromResult;
 function createLeagueTableEntry(team, goalsFor, goalsAgainst) {
     var points = getPointsFromResult(goalsFor, goalsAgainst);
     return {
@@ -79,10 +78,13 @@ function createLeagueTableEntry(team, goalsFor, goalsAgainst) {
 }
 exports.createLeagueTableEntry = createLeagueTableEntry;
 function addEntryToLeagueTable(leagueTable, newEntry) {
-    if (leagueTable.filter(function (tableEntry) { return tableEntry.teamName === newEntry.teamName; }).length !== 0) {
-        return leagueTable.map(function (tableEntry) { return tableEntry.teamName === newEntry.teamName ? combineLeagueEntries(tableEntry, newEntry) : tableEntry; });
+    var teamExistsInLeague = leagueTable.filter(function (tableEntry) { return tableEntry.teamName === newEntry.teamName; }).length !== 0;
+    if (teamExistsInLeague) {
+        return leagueTable.map(function (tableEntry) { return tableEntry.teamName === newEntry.teamName
+            ? combineLeagueEntries(tableEntry, newEntry)
+            : tableEntry; });
     }
-    return (__spreadArrays(leagueTable, [newEntry]));
+    return __spreadArrays(leagueTable, [newEntry]);
 }
 exports.addEntryToLeagueTable = addEntryToLeagueTable;
 function combineLeagueEntries(tableEntry, newEntry) {
