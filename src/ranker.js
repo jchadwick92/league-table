@@ -1,4 +1,11 @@
 "use strict";
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 function rankTeams(csvLines) {
     var leagueTable = [];
@@ -8,7 +15,10 @@ function rankTeams(csvLines) {
         var homeTeamGoals = parseInt(homeTeamGoalsString, 10);
         var awayTeamGoals = parseInt(awayTeamGoalsString, 10);
         // TODO: Instead of printing these out, build up a league table
-        console.log(homeTeam, homeTeamGoals, awayTeam, awayTeamGoals);
+        var homeTeamLeagueEntry = createLeagueTableEntry(homeTeam, homeTeamGoals, awayTeamGoals);
+        var awayTeamLeagueEntry = createLeagueTableEntry(awayTeam, awayTeamGoals, homeTeamGoals);
+        leagueTable = addEntryToLeagueTable(leagueTable, homeTeamLeagueEntry);
+        leagueTable = addEntryToLeagueTable(leagueTable, awayTeamLeagueEntry);
     }
     return sortLeagueTable(leagueTable);
 }
@@ -26,9 +36,66 @@ function sortLeagueTable(leagueTable) {
     return leagueTable
         .sort(function (a, b) {
         // TODO: If team a should be below team b, return -1, etc.
+        if (a.points < b.points) {
+            return -1;
+        }
+        if (a.points > b.points) {
+            return 1;
+        }
+        var aGoalDiff = a.goalsFor - a.goalsAgainst;
+        var bGoalDiff = b.goalsFor - b.goalsAgainst;
+        if (aGoalDiff < bGoalDiff) {
+            return -1;
+        }
+        if (aGoalDiff > bGoalDiff) {
+            return 1;
+        }
         return 0;
     })
         .reverse();
 }
 exports.sortLeagueTable = sortLeagueTable;
+var getPointsFromResult = function (teamGoals, opponentGoals) {
+    if (teamGoals > opponentGoals) {
+        return 3;
+    }
+    if (teamGoals === opponentGoals) {
+        return 1;
+    }
+    return 0;
+};
+function createLeagueTableEntry(team, goalsFor, goalsAgainst) {
+    var points = getPointsFromResult(goalsFor, goalsAgainst);
+    return {
+        teamName: team,
+        played: 1,
+        wins: points === 3 ? 1 : 0,
+        draws: points === 1 ? 1 : 0,
+        losses: points === 0 ? 1 : 0,
+        points: points,
+        goalsFor: goalsFor,
+        goalsAgainst: goalsAgainst
+    };
+}
+exports.createLeagueTableEntry = createLeagueTableEntry;
+function addEntryToLeagueTable(leagueTable, newEntry) {
+    if (leagueTable.filter(function (tableEntry) { return tableEntry.teamName === newEntry.teamName; }).length !== 0) {
+        return leagueTable.map(function (tableEntry) { return tableEntry.teamName === newEntry.teamName ? combineLeagueEntries(tableEntry, newEntry) : tableEntry; });
+    }
+    return (__spreadArrays(leagueTable, [newEntry]));
+}
+exports.addEntryToLeagueTable = addEntryToLeagueTable;
+function combineLeagueEntries(tableEntry, newEntry) {
+    return {
+        teamName: tableEntry.teamName,
+        played: tableEntry.played + newEntry.played,
+        wins: tableEntry.wins + newEntry.wins,
+        draws: tableEntry.draws + newEntry.draws,
+        losses: tableEntry.losses + newEntry.losses,
+        points: tableEntry.points + newEntry.points,
+        goalsFor: tableEntry.goalsFor + newEntry.goalsFor,
+        goalsAgainst: tableEntry.goalsAgainst + newEntry.goalsAgainst
+    };
+}
+exports.combineLeagueEntries = combineLeagueEntries;
 //# sourceMappingURL=ranker.js.map

@@ -134,11 +134,11 @@
         "signature": "0a09d7aacc12c8432f42cbf5ee4f4fde60f9dcfa99e50e5be0cfa2bd279f56cb"
       },
       "./src/ranker.ts": {
-        "version": "83d4d760aa43ed200d8a8280665fa395d5ceda624438d19a5f4eb33d7c096379",
-        "signature": "aa0e9e16ef1e9e2402df0ef91df5feb3b9abdbd945f262491d9cc16f62489097"
+        "version": "81e95c06559838219b18abeb26ccdb341adda15cc81d3241a4ff732771badd78",
+        "signature": "8f4163ec5b2b279d92eca86af803fac03aeaf43ba2cb57adc7ca397a2671e74e"
       },
       "./src/printer.ts": {
-        "version": "1b2101666b912b8dc13ea4e81421d66ca444d346daafb34366e6c4d734b9044d",
+        "version": "8dc2843611741cb3e60d4238ecc9b927e2dcffd655c6810840e66e1c7a26b3ea",
         "signature": "8c236a9949752206d0199ec42783125e8c58cfe9e80629e45e30a4a7446016c1"
       },
       "./src/main.ts": {
