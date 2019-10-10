@@ -134,7 +134,7 @@
         "signature": "0a09d7aacc12c8432f42cbf5ee4f4fde60f9dcfa99e50e5be0cfa2bd279f56cb"
       },
       "./src/ranker.ts": {
-        "version": "12e1d090ea8c78915fa5fef38b0d0b62ae19a2745658687ac8a70e2fb8235a5a",
+        "version": "03dba9f3e02361c18eee0da18de63e8f91a685074f153d49dde149e2f8b36d64",
         "signature": "c8073ecbc39da78d3579a32a8b79c8598c74ebdea2ff6817f7595a29adc581c6"
       },
       "./src/printer.ts": {
@@ -1421,6 +1421,8 @@
       "./src/csv.ts",
       "./src/types.ts",
       "./src/printer.ts",
+      "./src/main.ts",
+      "./src/ranker.test.ts",
       "./node_modules/@babel/types/lib/index.d.ts",
       "./node_modules/@types/babel__generator/index.d.ts",
       "./node_modules/@types/babel__traverse/index.d.ts",
@@ -1481,9 +1483,7 @@
       "./node_modules/@types/stack-utils/index.d.ts",
       "./node_modules/@types/yargs-parser/index.d.ts",
       "./node_modules/@types/yargs/index.d.ts",
-      "./src/ranker.ts",
-      "./src/ranker.test.ts",
-      "./src/main.ts"
+      "./src/ranker.ts"
     ]
   },
   "version": "3.6.3"

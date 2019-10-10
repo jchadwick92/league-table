@@ -75,7 +75,7 @@ export function createLeagueTableEntry(team: string, goalsFor: number, goalsAgai
 }
 
 export function addEntryToLeagueTable(leagueTable: LeagueTable, newEntry: LeagueTableEntry): LeagueTable {
-    const teamExistsInLeague = leagueTable.filter(tableEntry => tableEntry.teamName === newEntry.teamName).length !== 0;
+    const teamExistsInLeague = leagueTable.some(tableEntry => tableEntry.teamName === newEntry.teamName);
 
     if (teamExistsInLeague) {
         return leagueTable.map((tableEntry: LeagueTableEntry) => tableEntry.teamName === newEntry.teamName

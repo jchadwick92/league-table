@@ -78,7 +78,7 @@ function createLeagueTableEntry(team, goalsFor, goalsAgainst) {
 }
 exports.createLeagueTableEntry = createLeagueTableEntry;
 function addEntryToLeagueTable(leagueTable, newEntry) {
-    var teamExistsInLeague = leagueTable.filter(function (tableEntry) { return tableEntry.teamName === newEntry.teamName; }).length !== 0;
+    var teamExistsInLeague = leagueTable.some(function (tableEntry) { return tableEntry.teamName === newEntry.teamName; });
     if (teamExistsInLeague) {
         return leagueTable.map(function (tableEntry) { return tableEntry.teamName === newEntry.teamName
             ? combineLeagueEntries(tableEntry, newEntry)
